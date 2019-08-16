@@ -8,7 +8,7 @@
       authorized_key:
         user: pi
         state: present
-        key: "{{ lookup('file', '/home/amu/.ssh/id_rsa.pub') }}"
+        key: "{{ lookup('file', '/home/admin/.ssh/id_rsa.pub') }}"
 
     - name: Generate RSA host key
       command: "ssh-keygen -q -t rsa -f /home/{{ rpi_username }}/.ssh/id_rsa -C \"\" -N \"\""
@@ -80,7 +80,7 @@
         backup=yes
 
     - name: set timezone
-      copy: content='Europe/Berlin\n'
+      copy: content='Europe/Paris\n'
         dest=/etc/timezone
         owner=root
         group=root
