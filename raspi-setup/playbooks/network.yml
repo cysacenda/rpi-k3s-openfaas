@@ -5,10 +5,15 @@
   gather_facts: True
 
   tasks:
-    - name: Update all packages to the latest version
+    - name: Upgrade all packages to the latest version
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Install aptitude
       apt:
         name: aptitude
-        upgrade: yes
+        state: latest
 
     - name: Install dnsmasq and iptables persistance
       apt:
