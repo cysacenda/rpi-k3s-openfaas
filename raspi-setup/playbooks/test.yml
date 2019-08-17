@@ -1,0 +1,18 @@
+---
+- hosts: k3s_rpi_master
+  remote_user: pi
+  become: True
+  gather_facts: True
+
+  tasks:
+    - name: Copy dnsmasq config
+      template:
+        src: "dnsmasq.conf.j2"
+        dest: "/etc/dnsmasq.conf"
+        owner: "root"
+        group: "root"
+        mode: 0644
+
+  post_tasks:
+    - name: Reboot after cluster setup
+      reboot:
