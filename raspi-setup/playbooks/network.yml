@@ -8,8 +8,8 @@
     - name: Update all packages to the latest version
       apt:
         name: aptitude
+        upgrade: yes
 
-    upgrade: yes
     - name: Install dnsmasq and iptables persistance
       apt:
         name: "{{ packages }}"
