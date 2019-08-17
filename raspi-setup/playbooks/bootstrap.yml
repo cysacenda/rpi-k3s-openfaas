@@ -94,7 +94,7 @@
 
     - name: Add IP address of all hosts to all hosts
       template:
-        src: "hosts.j2"
+        src: "templates/hosts.j2"
         dest: "/etc/hosts"
         owner: "root"
         group: "root"

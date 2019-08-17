@@ -16,7 +16,7 @@
 
     - name: Copy dnsmasq config
       template:
-        src: "dnsmasq.conf.j2"
+        src: "templates/dnsmasq.conf.j2"
         dest: "/etc/dnsmasq.conf"
         owner: "root"
         group: "root"
@@ -24,7 +24,7 @@
 
     - name: Copy dhcpcd config
       template:
-        src: "dhcpcd.conf.j2"
+        src: "templates/dhcpcd.conf.j2"
         dest: "/etc/dhcpcd.conf"
         owner: "root"
         group: "root"

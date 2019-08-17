@@ -1,0 +1,1 @@
+Simple test to be sure that ansible work (copy a file from server to guests)
