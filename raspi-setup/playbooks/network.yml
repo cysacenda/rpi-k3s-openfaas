@@ -5,6 +5,11 @@
   gather_facts: True
 
   tasks:
+    - name: Update all packages to the latest version
+      apt:
+        name: aptitude
+
+    upgrade: yes
     - name: Install dnsmasq and iptables persistance
       apt:
         name: "{{ packages }}"
@@ -56,8 +61,6 @@
       command: service netfilter-persistent save
       when: _iptables_configured['changed']
 
-  post_tasks:
-    - name: Reboot after cluster setup
-      reboot:
-
-
+#  post_tasks:
+#    - name: Reboot after cluster setup
+#      reboot:
