@@ -66,6 +66,6 @@
       command: service netfilter-persistent save
       when: _iptables_configured['changed']
 
-#  post_tasks:
-#    - name: Reboot after cluster setup
-#      reboot:
+  post_tasks:
+    - name: Reboot after cluster setup
+      reboot:
