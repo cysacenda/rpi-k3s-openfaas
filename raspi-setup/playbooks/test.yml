@@ -5,14 +5,10 @@
   gather_facts: True
 
   tasks:
-    - name: Copy dnsmasq config
+    - name: Test csa
       template:
-        src: "dnsmasq.conf.j2"
-        dest: "/etc/dnsmasq.conf"
+        src: "a.txt"
+        dest: "/etc/a.txt"
         owner: "root"
         group: "root"
         mode: 0644
-
-  post_tasks:
-    - name: Reboot after cluster setup
-      reboot:
