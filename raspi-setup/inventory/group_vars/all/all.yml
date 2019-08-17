@@ -44,7 +44,7 @@ dhcp_scope_netmask: 255.255.255.0
 # It also has to match the hosts in the host.inv file!
 dhcp_master: "{{ dhcp_scope_subnet }}.200"
 dhcp_scope_start_range: "{{ dhcp_scope_subnet }}.201"
-dhcp_scope_end_range: "{{ dhcp_scope_subnet }}.202"
+dhcp_scope_end_range: "{{ dhcp_scope_subnet }}.201"
 
 # Defines dhcp scope subnet for isolated network
 dhcp_scope_subnet: 192.168.50
