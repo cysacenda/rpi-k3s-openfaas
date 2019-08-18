@@ -38,6 +38,7 @@
         key: "{{ master_ssh_public_key.stdout }}"
 
 - hosts: all
+  order: reverse_sorted
   remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
