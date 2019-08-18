@@ -42,11 +42,6 @@
   become: True
   gather_facts: True
 
-  roles:
-  - role: jnv.unattended-upgrades
-    unattended_origins_patterns:
-      - 'origin=Raspbian,codename=${distro_codename},label=Raspbian'
-
   pre_tasks:
     - name: Change pi password
       user:
