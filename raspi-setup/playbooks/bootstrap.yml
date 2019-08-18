@@ -82,11 +82,6 @@
         mode=0644
         backup=yes
 
-    - name: Expand filesystem
-      shell: "raspi-config --expand-rootfs >> .ansible/sd-expanded"
-      args:
-        creates: .ansible/sd-expanded
-
     - name: Add IP address of all hosts to all hosts
       template:
         src: "templates/hosts.j2"
