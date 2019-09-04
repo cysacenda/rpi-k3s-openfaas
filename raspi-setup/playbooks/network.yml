@@ -65,6 +65,10 @@
     - name: Save IPTables
       command: service netfilter-persistent save
       when: _iptables_configured['changed']
+      
+    - name: Allow forward
+      command: echo 1 > /proc/sys/net/ipv4/ip_forward
+      become: true
 
   post_tasks:
     - name: Reboot after cluster setup
