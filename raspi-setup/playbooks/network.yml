@@ -66,8 +66,13 @@
       command: service netfilter-persistent save
       when: _iptables_configured['changed']
       
-    - name: Allow forward
-      command: echo 1 > /proc/sys/net/ipv4/ip_forward
+    - name: Enabling IP forward
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 1
+        sysctl_set: yes
+        state: present
+        reload: yes
       become: true
 
   post_tasks:
