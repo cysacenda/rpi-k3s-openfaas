@@ -7,7 +7,7 @@
   tasks:
     - name: Install / upgrade k3s on master node
       # shell: "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" sh -"
-      shell: "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" sh - --docker --no-flannel"
+      shell: "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" --docker --no-flannel sh -"
 
     - name: Get token from master
       shell: "cat /var/lib/rancher/k3s/server/node-token"
@@ -28,7 +28,7 @@
     - name: Install / upgrade k3s on worker nodes and connect to master
       # shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -"
       # see if something needs to be done to work with docker cf. https://bleemeo.com/blog/kubernetes-on-raspberry-pi-cluster-with-k3s
-      shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh - --docker --no-flannel"
+      shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} --docker --no-flannel sh -"
 
 - hosts: k3s_rpi_master
   remote_user: pi
