@@ -23,7 +23,7 @@
   tasks:
     - name: Install / upgrade k3s on master node
       # shell: "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" sh -"
-      shell: "curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode --docker --no-flannel"
+      shell: "curl -sfL https://get.k3s.io | sh -s -"
 
     - name: Get token from master
       shell: "cat /var/lib/rancher/k3s/server/node-token"
@@ -44,7 +44,27 @@
     - name: Install / upgrade k3s on worker nodes and connect to master
       # shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -"
       # see if something needs to be done to work with docker cf. https://bleemeo.com/blog/kubernetes-on-raspberry-pi-cluster-with-k3s
-      shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -s - --write-kubeconfig-mode --docker --no-flannel"
+      # shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -s - --docker --no-flannel"
+      shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -s -"
+      
+- hosts: all
+  remote_user: pi
+  become: True
+  gather_facts: True
+  
+  tasks:   
+    - name: Disable SWAP since kubernetes can't work with swap enabled (1/3)
+      shell: |
+        swapoff -a
+    
+    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/3)
+      replace:
+        path: /etc/fstab
+        regexp: '^(.+?\sswap\s+sw\s+.*)$'
+        replace: '# \1'
+    
+    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (3/3)
+      shell: "strace -eopenat kubectl version"
 
 - hosts: k3s_rpi_master
   remote_user: pi
