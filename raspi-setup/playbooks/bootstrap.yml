@@ -93,7 +93,9 @@
 - hosts: k3s_rpi_master
   remote_user: "{{ rpi_username }}"
   gather_facts: True
+  become: True
 
+  tasks:
     - name: Disable Password Authentication
       lineinfile:
         dest=/etc/ssh/sshd_config
