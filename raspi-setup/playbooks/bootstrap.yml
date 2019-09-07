@@ -18,6 +18,14 @@
     - name: Get public key
       shell: "cat /home/{{ rpi_username }}/.ssh/id_rsa.pub"
       register: master_ssh_public_key
+      
+    - name: Disable Password Authentication
+      lineinfile:
+        dest=/etc/ssh/sshd_config
+        regexp='^PasswordAuthentication'
+        line="PasswordAuthentication no"
+        state=present
+        backup=yes
 
 - hosts: k3s_rpi_worker
   remote_user: pi
@@ -49,26 +57,10 @@
         name: pi
         append: yes
         groups: sudo
-  
-    - name: Remove excessive privilege from pi
-      lineinfile:
-        dest: /etc/sudoers
-        state: present
-        regexp: '^#?pi'
-        line: '#pi ALL=(ALL) NOPASSWD:ALL'
-        validate: 'visudo -cf %s'
 
     - name: Set hostname
       hostname:
         name: "{{ inventory_hostname }}"
-
-    - name: Disable Password Authentication
-      lineinfile:
-        dest=/etc/ssh/sshd_config
-        regexp='^PasswordAuthentication'
-        line="PasswordAuthentication no"
-       state=present
-        backup=yes
 
     - name: set timezone
       copy: content='Europe/Paris\n'
