@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  order: reverse_sorted
   remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
@@ -44,6 +45,7 @@
       shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -s -"
       
 - hosts: all
+  order: reverse_sorted
   remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
