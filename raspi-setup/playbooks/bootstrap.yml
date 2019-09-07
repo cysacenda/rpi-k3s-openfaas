@@ -18,14 +18,6 @@
     - name: Get public key
       shell: "cat /home/{{ rpi_username }}/.ssh/id_rsa.pub"
       register: master_ssh_public_key
-      
-    - name: Disable Password Authentication
-      lineinfile:
-        dest=/etc/ssh/sshd_config
-        regexp='^PasswordAuthentication'
-        line="PasswordAuthentication no"
-        state=present
-        backup=yes
 
 - hosts: k3s_rpi_worker
   remote_user: pi
@@ -97,6 +89,18 @@
         - vim
         - aptitude 
         - git
+
+- hosts: k3s_rpi_master
+  remote_user: "{{ rpi_username }}"
+  gather_facts: True
+  
+  - name: Disable Password Authentication
+      lineinfile:
+        dest=/etc/ssh/sshd_config
+        regexp='^PasswordAuthentication'
+        line="PasswordAuthentication no"
+        state=present
+        backup=yes
 
 - hosts: k3s_rpi_worker
   remote_user: "{{ rpi_username }}"
