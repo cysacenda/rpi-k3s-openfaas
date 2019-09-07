@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: pi
+  remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
   
@@ -12,10 +12,9 @@
       shell: "sudo usermod -a -G docker $USER"
 
 - hosts: k3s_rpi_master
-  remote_user: pi
+  remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
-  
 
   tasks:
     - name: Install / upgrade k3s on master node
@@ -27,7 +26,7 @@
       register: k3s_node_token
 
 - hosts: k3s_rpi_worker
-  remote_user: pi
+  remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
 
@@ -45,7 +44,7 @@
       shell: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ master_node_ip }}:6443 K3S_TOKEN={{ k3s_master_token }} sh -s -"
       
 - hosts: all
-  remote_user: pi
+  remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
   
@@ -64,7 +63,7 @@
       shell: "strace -eopenat kubectl version"
 
 - hosts: k3s_rpi_master
-  remote_user: pi
+  remote_user: "{{ rpi_username }}"
   become: True
   gather_facts: True
 
