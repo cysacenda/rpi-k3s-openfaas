@@ -94,7 +94,7 @@
   remote_user: "{{ rpi_username }}"
   gather_facts: True
 
-  - name: Disable Password Authentication
+    - name: Disable Password Authentication
       lineinfile:
         dest=/etc/ssh/sshd_config
         regexp='^PasswordAuthentication'
