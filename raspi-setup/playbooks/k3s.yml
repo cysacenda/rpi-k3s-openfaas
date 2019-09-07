@@ -6,13 +6,10 @@
   
   tasks:
     - name: Install docker - Retrieve get-docker.sh
-      shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
-    
-    - name: Install docker - Modif
-      shell: "sed -i 's/9)/10)/' get-docker.sh"
+      shell: "curl -sSL get.docker.com | sh"
       
-    - name: Install docker - Install
-      shell: "sh get-docker.sh"
+    - name: Avoid to have to sudo for each command
+      shell: "sudo usermod -a -G docker $USER"
 
 - hosts: k3s_rpi_master
   remote_user: pi
