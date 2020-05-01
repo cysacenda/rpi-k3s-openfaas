@@ -1,0 +1,8 @@
+- hosts: k3s_rpi_master
+  remote_user: "{{ rpi_username }}"
+  become: True
+  gather_facts: True
+
+  tasks:
+    - name: Install Arkade on master node
+      shell: "curl -sLS https://dl.get-arkade.dev | sudo sh"

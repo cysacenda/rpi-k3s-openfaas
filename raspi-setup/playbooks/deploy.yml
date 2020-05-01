@@ -7,6 +7,12 @@
 
 - name: Install k3s
   import_playbook: k3s.yml
+  
+#- name: Install k3s-dashboard
+#  import_playbook: k3s-dashboard.yml
+  
+#- name: Install openfaas
+#  import_playbook: k3s.yml
 
 #- name: Install databases
 #  import_playbook: databases.yml
