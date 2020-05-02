@@ -1,6 +1,10 @@
 ---
 - name: Setup cluster network
   import_playbook: network.yml
+  
+# Pause for 5 minutes to build app cache.
+- pause:
+    minutes: 1
 
 - name: Bootstrap cluster
   import_playbook: bootstrap.yml
@@ -8,8 +12,8 @@
 - name: Install k3s
   import_playbook: k3s.yml
   
-#- name: Install k3s-dashboard
-#  import_playbook: k3s-dashboard.yml
+- name: Install k3s-dashboard
+  import_playbook: k3s-dashboard.yml
   
 #- name: Install openfaas
 #  import_playbook: k3s.yml

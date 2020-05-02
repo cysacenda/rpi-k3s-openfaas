@@ -25,6 +25,7 @@
     - name: Get token from master
       shell: "cat /var/lib/rancher/k3s/server/node-token"
       register: k3s_node_token
+    
 
 - hosts: k3s_rpi_worker
   remote_user: "{{ rpi_username }}"
@@ -63,3 +64,12 @@
     
     #- name: Disable SWAP in fstab since kubernetes can't work with swap enabled (3/3)
     #  shell: "strace -eopenat kubectl version"
+
+- hosts: k3s_rpi_master
+  remote_user: "{{ rpi_username }}"
+  become: True
+  gather_facts: True
+
+  tasks:    
+    - name: Setup kubeconfig for user toi avoid sudo for kubectl
+      shell: "sudo chmod -R 777 /etc/rancher/k3s/k3s.yaml"
